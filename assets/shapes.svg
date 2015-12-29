@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1000 600" enable-background="new 0 0 1000 600" xml:space="preserve">
+<g id="shapes">
+	<ellipse id="ellipse" fill="none" stroke="#000000" stroke-miterlimit="10" cx="94.5" cy="56.5" rx="62.5" ry="32.5"/>
+	<path id="ellipseShear" fill="none" stroke="#000000" stroke-miterlimit="10" d="M507.1,55.6c14.6,13.9-7.9,26.9-50.2,29.1
+		c-42.3,2.2-88.4-7.3-103-21.2s7.9-26.9,50.2-29.1C446.4,32.2,492.5,41.7,507.1,55.6z"/>
+
+		<ellipse id="ellipseRotate" transform="matrix(0.8657 0.5006 -0.5006 0.8657 65.0003 -124.2379)" fill="none" stroke="#000000" stroke-miterlimit="10" cx="264" cy="59" rx="66" ry="30"/>
+	<rect id="rect" x="43" y="165" fill="none" stroke="#000000" stroke-miterlimit="10" width="124" height="72"/>
+
+		<rect id="rectRotate" x="204.9" y="165" transform="matrix(0.9109 0.4125 -0.4125 0.9109 106.6851 -92.2065)" fill="none" stroke="#000000" stroke-miterlimit="10" width="124" height="72"/>
+	<polygon id="rectShear" fill="none" stroke="#000000" stroke-miterlimit="10" points="484.5,237 360.5,237 376.5,165 500.5,165
+		"/>
+	<circle id="circle" fill="none" stroke="#000000" stroke-miterlimit="10" cx="103.1" cy="342.5" r="53.9"/>
+	<circle id="circleRotate" fill="none" stroke="#000000" stroke-miterlimit="10" cx="267.1" cy="342.5" r="53.9"/>
+
+		<ellipse id="circleScale" fill="none" stroke="#000000" stroke-width="0.7165" stroke-miterlimit="10" cx="430.1" cy="342.5" rx="45.2" ry="33.1"/>
+	<path id="heart" fill="none" stroke="#000000" stroke-miterlimit="10" d="M110.4,568.6c0,0-66.9-37.3-74-79.2
+		c-9.1-53.2,74-51.3,74-5.8c0-45.5,83.1-47.4,74,5.8C177.3,531.3,110.4,568.6,110.4,568.6z"/>
+	<g id="control_x5F_points">
+
+			<line id="XMLID_50_" fill="none" stroke="#8CC63F" stroke-width="0.25" stroke-miterlimit="10" x1="27" y1="436.5" x2="44" y2="531.5"/>
+		<line id="XMLID_49_" fill="none" stroke="#8CC63F" stroke-miterlimit="10" x1="110.5" y1="483" x2="110.5" y2="437"/>
+		<circle id="XMLID_48_" fill="#8CC63F" cx="27" cy="436.5" r="2.5"/>
+		<circle id="XMLID_47_" fill="#8CC63F" cx="44" cy="531.5" r="2.5"/>
+		<circle id="XMLID_46_" fill="#8CC63F" cx="110" cy="436.5" r="2.5"/>
+	</g>
+</g>
+<g id="v_x5F_labels">
+	<text id="XMLID_1_" transform="matrix(1 0 0 1 560.0176 117.4129)" font-family="'MyriadPro-Regular'" font-size="18px">ellipse</text>
+	<text id="XMLID_3_" transform="matrix(1 0 0 1 535.4297 162.5293)" font-family="'MyriadPro-Regular'" font-size="18px">ellipseRotate</text>
+	<text id="XMLID_4_" transform="matrix(1 0 0 1 538.7959 207.6465)" font-family="'MyriadPro-Regular'" font-size="18px">ellipseShear</text>
+	<text id="XMLID_6_" transform="matrix(1 0 0 1 569.6113 252.7637)" font-family="'MyriadPro-Regular'" font-size="18px">rect</text>
+	<text id="XMLID_7_" transform="matrix(1 0 0 1 545.0234 297.881)" font-family="'MyriadPro-Regular'" font-size="18px">rectRotate</text>
+	<text id="XMLID_51_" transform="matrix(1 0 0 1 548.3896 342.9972)" font-family="'MyriadPro-Regular'" font-size="18px">rectShear</text>
+	<text id="XMLID_52_" transform="matrix(1 0 0 1 564.3281 388.1144)" font-family="'MyriadPro-Regular'" font-size="18px">circle</text>
+	<text id="XMLID_53_" transform="matrix(1 0 0 1 539.7412 433.2316)" font-family="'MyriadPro-Regular'" font-size="18px">circleRotate</text>
+	<text id="XMLID_54_" transform="matrix(1 0 0 1 544.8887 478.3488)" font-family="'MyriadPro-Regular'" font-size="18px">circleScale</text>
+	<text id="XMLID_55_" transform="matrix(1 0 0 1 564.3105 523.4656)" font-family="'MyriadPro-Regular'" font-size="18px">heart</text>
+</g>
+<g id="h_x5F_labels">
+	<text id="XMLID_2_" transform="matrix(1 0 0 1 659.5288 78)" font-family="'MyriadPro-Regular'" font-size="18px">top</text>
+	<text id="XMLID_57_" transform="matrix(1 0 0 1 749.4944 78)" font-family="'MyriadPro-Regular'" font-size="18px">left</text>
+	<text id="XMLID_58_" transform="matrix(1 0 0 1 829.116 78)" font-family="'MyriadPro-Regular'" font-size="18px">width</text>
+	<text id="XMLID_59_" transform="matrix(1 0 0 1 915.4447 78)" font-family="'MyriadPro-Regular'" font-size="18px">height</text>
+</g>
+<g id="table_x5F_background">
+	<rect id="XMLID_56_" x="638" y="101" opacity="0.7" fill="#DBDB97" width="84" height="433.8"/>
+	<rect id="XMLID_62_" x="722" y="101" opacity="0.7" fill="#B2C691" width="84" height="433.8"/>
+	<rect id="XMLID_63_" x="806" y="101" opacity="0.7" fill="#DBDB97" width="84" height="433.8"/>
+	<rect id="XMLID_64_" x="890" y="101" opacity="0.7" fill="#B2C691" width="84" height="433.8"/>
+	<rect id="XMLID_60_" x="638" y="142.6" opacity="0.4" fill="#F2F2F2" width="336" height="29.4"/>
+	<rect id="XMLID_66_" x="638" y="233.3" opacity="0.4" fill="#F2F2F2" width="336" height="29.4"/>
+	<rect id="XMLID_67_" x="638" y="324" opacity="0.4" fill="#F2F2F2" width="336" height="29.4"/>
+	<rect id="XMLID_68_" x="638" y="414.7" opacity="0.4" fill="#F2F2F2" width="336" height="29.4"/>
+	<rect id="XMLID_69_" x="638" y="505.4" opacity="0.4" fill="#F2F2F2" width="336" height="29.4"/>
+</g>
+<g id="numbers">
+	<text id="XMLID_65_" transform="matrix(1 0 0 1 666.5359 125.9909)"><tspan x="0" y="0" font-family="'MyriadPro-Regular'" font-size="18px">24</tspan><tspan x="-9.2" y="44" font-family="'MyriadPro-Regular'" font-size="18px">-0.01</tspan><tspan x="-11.1" y="88" font-family="'MyriadPro-Regular'" font-size="18px">32.20</tspan><tspan x="-4.6" y="132" font-family="'MyriadPro-Regular'" font-size="18px">165</tspan><tspan x="-15.7" y="176" font-family="'MyriadPro-Regular'" font-size="18px">142.61</tspan><tspan x="-4.6" y="220" font-family="'MyriadPro-Regular'" font-size="18px">165</tspan><tspan x="-15.7" y="264" font-family="'MyriadPro-Regular'" font-size="18px">288.60</tspan><tspan x="-15.7" y="308" font-family="'MyriadPro-Regular'" font-size="18px">288.60</tspan><tspan x="-15.7" y="352" font-family="'MyriadPro-Regular'" font-size="18px">309.40</tspan><tspan x="-15.7" y="396" font-family="'MyriadPro-Regular'" font-size="18px">436.20</tspan></text>
+	<text id="XMLID_83_" transform="matrix(1 0 0 1 752.5001 125.9911)"><tspan x="0" y="0" font-family="'MyriadPro-Regular'" font-size="18px">32</tspan><tspan x="-15.7" y="44" font-family="'MyriadPro-Regular'" font-size="18px">191.86</tspan><tspan x="-15.7" y="88" font-family="'MyriadPro-Regular'" font-size="18px">339.30</tspan><tspan x="0" y="132" font-family="'MyriadPro-Regular'" font-size="18px">43</tspan><tspan x="-15.7" y="176" font-family="'MyriadPro-Regular'" font-size="18px">195.57</tspan><tspan x="-11.1" y="220" font-family="'MyriadPro-Regular'" font-size="18px">360.5</tspan><tspan x="-11.1" y="264" font-family="'MyriadPro-Regular'" font-size="18px">49.20</tspan><tspan x="-15.7" y="308" font-family="'MyriadPro-Regular'" font-size="18px">213.20</tspan><tspan x="-15.7" y="352" font-family="'MyriadPro-Regular'" font-size="18px">384.90</tspan><tspan x="-11.1" y="396" font-family="'MyriadPro-Regular'" font-size="18px">27.30</tspan></text>
+	<text id="XMLID_84_" transform="matrix(1 0 0 1 833.8472 125.9914)"><tspan x="0" y="0" font-family="'MyriadPro-Regular'" font-size="18px">125</tspan><tspan x="-11.1" y="44" font-family="'MyriadPro-Regular'" font-size="18px">144.31</tspan><tspan x="-11.1" y="88" font-family="'MyriadPro-Regular'" font-size="18px">182.40</tspan><tspan x="0" y="132" font-family="'MyriadPro-Regular'" font-size="18px">124</tspan><tspan x="-11.1" y="176" font-family="'MyriadPro-Regular'" font-size="18px">142.65</tspan><tspan x="0" y="220" font-family="'MyriadPro-Regular'" font-size="18px">140</tspan><tspan x="-11.1" y="264" font-family="'MyriadPro-Regular'" font-size="18px">107.80</tspan><tspan x="-11.1" y="308" font-family="'MyriadPro-Regular'" font-size="18px">107.80</tspan><tspan x="-6.5" y="352" font-family="'MyriadPro-Regular'" font-size="18px">90.40</tspan><tspan x="-11.1" y="396" font-family="'MyriadPro-Regular'" font-size="18px">166.20</tspan></text>
+	<text id="XMLID_85_" transform="matrix(1 0 0 1 924.4285 125.9916)"><tspan x="0" y="0" font-family="'MyriadPro-Regular'" font-size="18px">65</tspan><tspan x="-15.7" y="44" font-family="'MyriadPro-Regular'" font-size="18px">118.02</tspan><tspan x="-11.1" y="88" font-family="'MyriadPro-Regular'" font-size="18px">54.70</tspan><tspan x="0" y="132" font-family="'MyriadPro-Regular'" font-size="18px">72</tspan><tspan x="-15.7" y="176" font-family="'MyriadPro-Regular'" font-size="18px">116.73</tspan><tspan x="0" y="220" font-family="'MyriadPro-Regular'" font-size="18px">72</tspan><tspan x="-15.7" y="264" font-family="'MyriadPro-Regular'" font-size="18px">107.80</tspan><tspan x="-15.7" y="308" font-family="'MyriadPro-Regular'" font-size="18px">107.80</tspan><tspan x="-11.1" y="352" font-family="'MyriadPro-Regular'" font-size="18px">66.20</tspan><tspan x="-15.7" y="396" font-family="'MyriadPro-Regular'" font-size="18px">132.40</tspan></text>
+</g>
+</svg>
