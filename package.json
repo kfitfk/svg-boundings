@@ -1,7 +1,7 @@
 {
   "name": "svg-boundings",
   "version": "1.0.0",
-  "description": "Get bounding rect of SVG shape elements. Shape elements includes <circle>, <ellipse>, <line>, <path>, <polygon>, <polyline>, <rect>. This module doesn't return the exact bounding rect for all the shape elements. However, it returns the same result as the browser does, assuming the origin point is the top left corner of the SVG document.",
+  "description": "Get bounding rect of SVG shape elements.",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
