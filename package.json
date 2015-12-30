@@ -6,6 +6,10 @@
   "scripts": {
     "test": "mocha"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kfitfk/svg-boundings.git"
+  },
   "keywords": [
     "SVG",
     "Bounding",
