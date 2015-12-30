@@ -422,8 +422,16 @@ function boundingRectOfPath(path) {
     }
     else if (command === 'Q') {
       for (i = 0; i < args.length; i += 4) {
-        checkX(args[i]);
-        checkY(args[i+1]);
+        // convert the one quadratic curve control point to
+        // two bezier curve control points using the formula
+        // cubicControlX1 = quadraticStartX + 2/3 * (quadraticControlX - quadraticStartX)
+        // cubicControlY1 = quadraticStartY + 2/3 * (quadraticControlY - quadraticStartY)
+        // cubicControlX2 = quadraticEndX + 2/3 * (quadraticControlX - quadraticEndX)
+        // cubicControlY2 = quadraticEndY + 2/3 * (quadraticControlY - quadraticEndY)
+        checkX(x + 2/3 * (args[i] - x));
+        checkY(y + 2/3 * (args[i+1] - y));
+        checkX(args[i+2] + 2/3 * (args[i] - args[i+2]));
+        checkY(args[i+3] + 2/3 * (args[i+1] - args[i+3]));
 
         x = args[i+2];
         y = args[i+3];
@@ -438,8 +446,10 @@ function boundingRectOfPath(path) {
     }
     else if (command === 'q') {
       for (i = 0; i < args.length; i += 4) {
-        checkX(x+args[i]);
-        checkY(y+args[i+1]);
+        checkX(x + 2/3 * args[i]);
+        checkY(y + 2/3 * args[i+1]);
+        checkX(x+args[i+2] + 2/3 * (args[i] - args[i+2]));
+        checkY(y+args[i+3] + 2/3 * (args[i+1] - args[i+3]));
 
         potentialCp = [
           2*(x+args[i+2]) - (x+args[i]),
@@ -454,8 +464,10 @@ function boundingRectOfPath(path) {
     }
     else if (command === 'T') {
       if (/[qt]/i.test(commands[idx - 1])) {
-        checkX(potentialCp[0]);
-        checkY(potentialCp[1]);
+        checkX(x + 2/3 * (potentialCp[0] - x));
+        checkY(y + 2/3 * (potentialCp[1] - y));
+        checkX(args[0] + 2/3 * (potentialCp[0] - args[0]));
+        checkY(args[1] + 2/3 * (potentialCp[1] - args[1]));
 
         potentialCp = [
           2*args[0] - potentialCp[0],
@@ -475,8 +487,10 @@ function boundingRectOfPath(path) {
       checkY(y);
 
       for (i = 2; i < args.length; i += 2) {
-        checkX(potentialCp[0]);
-        checkY(potentialCp[1]);
+        checkX(x + 2/3 * (potentialCp[0] - x));
+        checkY(y + 2/3 * (potentialCp[1] - y));
+        checkX(args[i] + 2/3 * (potentialCp[0] - args[i]));
+        checkY(args[i+1] + 2/3 * (potentialCp[1] - args[i+1]));
 
         potentialCp = [
           2*args[i] - potentialCp[0],
@@ -491,8 +505,10 @@ function boundingRectOfPath(path) {
     }
     else if (command === 't') {
       if (/[qt]/i.test(commands[idx - 1])) {
-        checkX(potentialCp[0]);
-        checkY(potentialCp[1]);
+        checkX(x + 2/3 * (potentialCp[0] - x));
+        checkY(y + 2/3 * (potentialCp[1] - y));
+        checkX(x+args[0] + 2/3 * (potentialCp[0] -x-args[0]));
+        checkY(y+args[1] + 2/3 * (potentialCp[1] -y-args[1]));
 
         potentialCp = [
           2*(x+args[0]) - potentialCp[0],
@@ -512,8 +528,10 @@ function boundingRectOfPath(path) {
       checkY(y);
 
       for (i = 2; i < args.length; i += 2) {
-        checkX(potentialCp[0]);
-        checkY(potentialCp[1]);
+        checkX(x + 2/3 * (potentialCp[0] - x));
+        checkY(y + 2/3 * (potentialCp[1] - y));
+        checkX(x+args[i] + 2/3 * (potentialCp[0] -x-args[i]));
+        checkY(y+args[i+1] + 2/3 * (potentialCp[1] -y-args[i+1]));
 
         potentialCp = [
           2*(x+args[i]) - potentialCp[0],
