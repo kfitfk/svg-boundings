@@ -1,33 +1,19 @@
 function _parseMatrixStr(str) {
-  var idx = 0;
-  var nextNumber = function() {
-    var chars = [];
+  var m = []
+  var rdigit = /[\d\.\-Ee]+/g
+  var n
 
-    while (/[^-\d\.]/.test(str.charAt(idx))) {
-      // skip the non-digit characters
-      idx++;
-    }
-
-    if ('-' === str.charAt(idx)) {
-      chars.push('-');
-      idx++;
-    }
-
-    while ((c = str.charAt(idx)) && /[\d\.]/.test(c)) {
-      chars.push(c);
-      idx++;
-    }
-
-    return parseFloat(chars.join(''));
-  };
+  while(n = rdigit.exec(str)) {
+    m.push(+n)
+  }
 
   return {
-    a: nextNumber(),
-    b: nextNumber(),
-    c: nextNumber(),
-    d: nextNumber(),
-    e: nextNumber(),
-    f: nextNumber()
+    a: m[0],
+    b: m[1],
+    c: m[2],
+    d: m[3],
+    e: m[4],
+    f: m[5]
   };
 }
 
@@ -76,8 +62,8 @@ function boundingRectOfLine(line) {
 function boundingRectOfRect(rect) {
   var w = parseFloat(rect.getAttribute('width'));
   var h = parseFloat(rect.getAttribute('height'))
-  var l = parseFloat(rect.getAttribute('x'));
-  var t = parseFloat(rect.getAttribute('y'));
+  var l = parseFloat(rect.getAttribute('x')) || 0;
+  var t = parseFloat(rect.getAttribute('y')) || 0;
   var r = l + w;
   var b = t + h;
 
@@ -103,8 +89,8 @@ function boundingRectOfRect(rect) {
 }
 
 function boundingRectOfCircle(circle) {
-  var cx = parseFloat(circle.getAttribute('cx'));
-  var cy = parseFloat(circle.getAttribute('cy'));
+  var cx = parseFloat(circle.getAttribute('cx')) || 0;
+  var cy = parseFloat(circle.getAttribute('cy')) || 0;
   var r = parseFloat(circle.getAttribute('r'));
 
   return {
@@ -116,8 +102,8 @@ function boundingRectOfCircle(circle) {
 }
 
 function boundingRectOfEllipse(ellipse) {
-  var cx = parseFloat(ellipse.getAttribute('cx'));
-  var cy = parseFloat(ellipse.getAttribute('cy'));
+  var cx = parseFloat(ellipse.getAttribute('cx')) || 0;
+  var cy = parseFloat(ellipse.getAttribute('cy')) || 0;
   var rx = parseFloat(ellipse.getAttribute('rx'));
   var ry = parseFloat(ellipse.getAttribute('ry'));
   var l = cx - rx;
@@ -218,7 +204,7 @@ function boundingRectOfPath(path) {
         idx++;
       }
 
-      while ((c = str.charAt(idx)) && /[\d\.]/.test(c)) {
+      while ((c = str.charAt(idx)) && /[\d\.Ee]/.test(c)) {
         chars.push(c);
         idx++;
       }
