@@ -157,3 +157,51 @@ describe('calculate path boundings which use S/s and T/t commands', function() {
     });
   });
 });
+
+describe('calculate real path boundings', function() {
+  before(function() {
+    svgStr = fs.readFileSync(path.join(__dirname, '..', 'assets', 'curves.svg'), { encoding: 'utf-8' });
+    browserData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'assets', 'curves_ai_data.json'), { encoding: 'utf-8' }));
+    $svg = $.load(svgStr, { xmlMode: true })('svg').eq(0);
+  });
+
+  it ('can get real bounding rect of a path which uses s commands', function() {
+    var ids = ['Mhcsss', 'Mhscs'];
+
+    ids.forEach(function(id) {
+      var path = $svg.find('#' + id);
+      var bounding = BoundingHelper.path(path, true);
+      compare(bounding, browserData[id]);
+    });
+  });
+
+  it ('can get real bounding rect of a path which uses S commands', function() {
+    var ids = ['MHCSSS', 'MHSCS'];
+
+    ids.forEach(function(id) {
+      var path = $svg.find('#' + id);
+      var bounding = BoundingHelper.path(path, true);
+      compare(bounding, browserData[id]);
+    });
+  });
+
+  it ('can get real bounding rect of a path which uses t commands', function() {
+    var ids = ['Mhqttt', 'Mhtttt'];
+
+    ids.forEach(function(id) {
+      var path = $svg.find('#' + id);
+      var bounding = BoundingHelper.path(path, true);
+      compare(bounding, browserData[id]);
+    });
+  });
+
+  it ('can get real bounding rect of a path which uses T commands', function() {
+    var ids = ['MHQTTT', 'MHTTTT'];
+
+    ids.forEach(function(id) {
+      var path = $svg.find('#' + id);
+      var bounding = BoundingHelper.path(path, true);
+      compare(bounding, browserData[id]);
+    });
+  });
+});

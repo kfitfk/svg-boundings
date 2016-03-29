@@ -1,3 +1,5 @@
+var CurveBounding = require('./lib/curve_bounding');
+
 function _parseMatrixStr(str) {
   var m = []
   var rdigit = /[\d\.\-Ee]+/g
@@ -159,8 +161,9 @@ function boundingRectOfPolyline(polyline) {
   return boundingRectOfPolygon(polyline);
 }
 
-// This method returns a rough bounding box of the path,
-// by only checking each points, not the actual drawn path,
+// This method returns the bounding box of the path.
+// Unless shouldReturnTrueBounding is set to a truthy value,
+// it only checks each point, not the actual drawn path,
 // meaning the bounding box may be larger than the actual
 // bounding box. The reason is:
 // 1. we don't need the exact bounding box;
@@ -174,7 +177,7 @@ function boundingRectOfPolyline(polyline) {
 // 2. M/m command checking.
 // Because Illustrator doesn't export A/a command as well as useless
 // M/m commands, we are good here.
-function boundingRectOfPath(path) {
+function boundingRectOfPath(path, shouldReturnTrueBounding) {
   var d = path.getAttribute('d').replace(/\r\n|\n|\r/gm, '');
   var x = 0, y = 0;
   var commands = [];
@@ -259,7 +262,8 @@ function boundingRectOfPath(path) {
     // S/s needs access to the points of previous C/c command
     // T/t needs access to the points of previous Q/q command
     // Here "previous" means right before the target command
-    var i;
+    var i, trueBounds, cpx1, cpy1, cpx2, cpy2;
+
     if (/[ML]/.test(command)) {
       for (i = 0; i < args.length; i += 2) {
         x = args[i];
@@ -278,44 +282,102 @@ function boundingRectOfPath(path) {
     }
     else if (command === 'C') {
       for (i = 0; i < args.length; i += 6) {
-        checkX(args[i]);
-        checkY(args[i+1]);
-        checkX(args[i+2]);
-        checkY(args[i+3]);
-
-        x = args[i+4];
-        y = args[i+5];
-        checkX(x);
-        checkY(y);
+        if (shouldReturnTrueBounding) {
+          trueBounds = CurveBounding.calculate(
+            CurveBounding.Mode.STANDARD,
+            x, y,
+            args[i], args[i+1],
+            args[i+2], args[i+3],
+            args[i+4], args[i+5]
+          );
+          checkX(trueBounds[0]); // MIN_X
+          checkX(trueBounds[4]); // MAX_X
+          checkY(trueBounds[1]); // MIN_Y
+          checkY(trueBounds[5]); // MAX_Y
+        }
+        else {
+          checkX(args[i]);
+          checkY(args[i+1]);
+          checkX(args[i+2]);
+          checkY(args[i+3]);
+          checkX(args[i+4]);
+          checkY(args[i+5]);
+        }
 
         potentialCp = [
           args[i+4] * 2 - args[i+2],
           args[i+5] * 2 - args[i+3]
         ];
+        x = args[i+4];
+        y = args[i+5];
       }
     }
     else if (command === 'c') {
       for (i = 0; i < args.length; i += 6) {
-        checkX(x+args[i+0]);
-        checkY(y+args[i+1]);
-        checkX(x+args[i+2]);
-        checkY(y+args[i+3]);
+        if (shouldReturnTrueBounding) {
+          trueBounds = CurveBounding.calculate(
+            CurveBounding.Mode.STANDARD,
+            x, y,
+            x+args[i], y+args[i+1],
+            x+args[i+2], y+args[i+3],
+            x+args[i+4], y+args[i+5]
+          );
+          checkX(trueBounds[0]); // MIN_X
+          checkX(trueBounds[4]); // MAX_X
+          checkY(trueBounds[1]); // MIN_Y
+          checkY(trueBounds[5]); // MAX_Y
+        }
+        else {
+          checkX(x+args[i+0]);
+          checkY(y+args[i+1]);
+          checkX(x+args[i+2]);
+          checkY(y+args[i+3]);
+          checkX(x+args[i+4]);
+          checkY(y+args[i+5]);
+        }
 
         potentialCp = [
           2*(x+args[i+4]) - (x+args[i+2]),
           2*(y+args[i+5]) - (y+args[i+3])
         ];
-
         x += args[i+4];
         y += args[i+5];
-        checkX(x);
-        checkY(y);
       }
     }
     else if (command === 'S') {
-      if (/[cs]/i.test(commands[idx - 1])) {
-        checkX(potentialCp[0]);
-        checkY(potentialCp[1]);
+      if (shouldReturnTrueBounding) {
+        if (/[cs]/i.test(commands[idx - 1])) {
+          trueBounds = CurveBounding.calculate(
+            CurveBounding.Mode.STANDARD,
+            x, y,
+            potentialCp[0], potentialCp[1],
+            args[0], args[1],
+            args[2], args[3]
+          );
+        }
+        else {
+          trueBounds = CurveBounding.calculate(
+            CurveBounding.Mode.STANDARD,
+            x, y,
+            x, y,
+            args[0], args[1],
+            args[2], args[3]
+          );
+        }
+        checkX(trueBounds[0]); // MIN_X
+        checkX(trueBounds[4]); // MAX_X
+        checkY(trueBounds[1]); // MIN_Y
+        checkY(trueBounds[5]); // MAX_Y
+      }
+      else {
+        if (/[cs]/i.test(commands[idx - 1])) {
+          checkX(potentialCp[0]);
+          checkY(potentialCp[1]);
+        }
+        checkX(args[0]);
+        checkY(args[1]);
+        checkX(args[2]);
+        checkY(args[3]);
       }
 
       potentialCp = [
@@ -323,63 +385,112 @@ function boundingRectOfPath(path) {
         2*args[3] - args[1]
       ];
 
-      checkX(args[0]);
-      checkY(args[1]);
       x = args[2];
       y = args[3];
-      checkX(x);
-      checkY(y);
 
       for (i = 4; i < args.length; i += 4) {
-        checkX(potentialCp[0]);
-        checkY(potentialCp[1]);
+        if (shouldReturnTrueBounding) {
+          trueBounds = CurveBounding.calculate(
+            CurveBounding.Mode.STANDARD,
+            x, y,
+            potentialCp[0], potentialCp[1],
+            args[i], args[i+1],
+            args[i+2], args[i+3]
+          );
+          checkX(trueBounds[0]); // MIN_X
+          checkX(trueBounds[4]); // MAX_X
+          checkY(trueBounds[1]); // MIN_Y
+          checkY(trueBounds[5]); // MAX_Y
+        }
+        else {
+          checkX(potentialCp[0]);
+          checkY(potentialCp[1]);
+          checkX(args[i]);
+          checkY(args[i+1]);
+          checkX(args[i+2]);
+          checkY(args[i+3]);
+        }
 
         potentialCp = [
           2*args[i+2] - args[i],
           2*args[i+3] - args[i+1]
         ];
-
-        checkX(args[i]);
-        checkY(args[i+1]);
         x = args[i+2];
         y = args[i+3];
-        checkX(x);
-        checkY(y);
       }
     }
     else if (command === 's') {
-      if (/[cs]/i.test(commands[idx - 1])) {
-        checkX(potentialCp[0]);
-        checkY(potentialCp[1]);
+      if (shouldReturnTrueBounding) {
+        if (/[cs]/i.test(commands[idx - 1])) {
+          trueBounds = CurveBounding.calculate(
+            CurveBounding.Mode.STANDARD,
+            x, y,
+            potentialCp[0], potentialCp[1],
+            x+args[0], y+args[1],
+            x+args[2], y+args[3]
+          );
+        }
+        else {
+          trueBounds = CurveBounding.calculate(
+            CurveBounding.Mode.STANDARD,
+            x, y,
+            x, y,
+            x+args[0], y+args[1],
+            x+args[2], y+args[3]
+          );
+        }
+        checkX(trueBounds[0]); // MIN_X
+        checkX(trueBounds[4]); // MAX_X
+        checkY(trueBounds[1]); // MIN_Y
+        checkY(trueBounds[5]); // MAX_Y
+      }
+      else {
+        if (/[cs]/i.test(commands[idx - 1])) {
+          checkX(potentialCp[0]);
+          checkY(potentialCp[1]);
+        }
+        checkX(x+args[0]);
+        checkY(y+args[1]);
+        checkX(x+args[2]);
+        checkY(y+args[3]);
       }
 
       potentialCp = [
         2*(x+args[2]) - (x+args[0]),
         2*(y+args[3]) - (y+args[1])
       ];
-
-      checkX(x+args[0]);
-      checkY(y+args[1]);
       x += args[2];
       y += args[3];
-      checkX(x);
-      checkY(y);
 
       for (i = 4; i < args.length; i += 4) {
-        checkX(potentialCp[0]);
-        checkY(potentialCp[1]);
+        if (shouldReturnTrueBounding) {
+          trueBounds = CurveBounding.calculate(
+            CurveBounding.Mode.STANDARD,
+            x, y,
+            potentialCp[0], potentialCp[1],
+            x+args[i], y+args[i+1],
+            x+args[i+2], y+args[i+3]
+          );
+          checkX(trueBounds[0]); // MIN_X
+          checkX(trueBounds[4]); // MAX_X
+          checkY(trueBounds[1]); // MIN_Y
+          checkY(trueBounds[5]); // MAX_Y
+        }
+        else {
+          checkX(potentialCp[0]);
+          checkY(potentialCp[1]);
+          checkX(x+args[i]);
+          checkY(y+args[i+1]);
+          checkX(x+args[i+2]);
+          checkY(y+args[i+3]);
+        }
 
         potentialCp = [
           2*(x+args[i+2]) - (x+args[i]),
           2*(y+args[i+3]) - (y+args[i+1])
         ];
-
-        checkX(x+args[i]);
-        checkY(y+args[i+1]);
         x += args[i+2];
         y += args[i+3];
-        checkX(x);
-        checkY(y);
       }
     }
     else if (command === 'H') {
@@ -414,46 +525,85 @@ function boundingRectOfPath(path) {
         // cubicControlY1 = quadraticStartY + 2/3 * (quadraticControlY - quadraticStartY)
         // cubicControlX2 = quadraticEndX + 2/3 * (quadraticControlX - quadraticEndX)
         // cubicControlY2 = quadraticEndY + 2/3 * (quadraticControlY - quadraticEndY)
-        checkX(x + 2/3 * (args[i] - x));
-        checkY(y + 2/3 * (args[i+1] - y));
-        checkX(args[i+2] + 2/3 * (args[i] - args[i+2]));
-        checkY(args[i+3] + 2/3 * (args[i+1] - args[i+3]));
 
-        x = args[i+2];
-        y = args[i+3];
-        checkX(x);
-        checkY(y);
+        cpx1 = x + 2/3 * (args[i] - x);
+        cpy1 = y + 2/3 * (args[i+1] - y);
+        cpx2 = args[i+2] + 2/3 * (args[i] - args[i+2]);
+        cpy2 = args[i+3] + 2/3 * (args[i+1] - args[i+3]);
+
+        if (shouldReturnTrueBounding) {
+          trueBounds = CurveBounding.calculate(
+            CurveBounding.Mode.STANDARD,
+            x, y,
+            cpx1, cpy1,
+            cpx2, cpy2,
+            args[i+2], args[i+3]
+          );
+          checkX(trueBounds[0]); // MIN_X
+          checkX(trueBounds[4]); // MAX_X
+          checkY(trueBounds[1]); // MIN_Y
+          checkY(trueBounds[5]); // MAX_Y
+        }
+        else {
+          checkX(cpx1);
+          checkY(cpy1);
+          checkX(cpx2);
+          checkY(cpy2);
+          checkX(args[i+2]);
+          checkY(args[i+3]);
+        }
 
         potentialCp = [
           2*args[i+2] - args[i],
           2*args[i+3] - args[i+1]
         ];
+        x = args[i+2];
+        y = args[i+3];
       }
     }
     else if (command === 'q') {
       for (i = 0; i < args.length; i += 4) {
-        checkX(x + 2/3 * args[i]);
-        checkY(y + 2/3 * args[i+1]);
-        checkX(x+args[i+2] + 2/3 * (args[i] - args[i+2]));
-        checkY(y+args[i+3] + 2/3 * (args[i+1] - args[i+3]));
+        cpx1 = x + 2/3 * args[i];
+        cpy1 = y + 2/3 * args[i+1];
+        cpx2 = x+args[i+2] + 2/3 * (args[i] - args[i+2]);
+        cpy2 = y+args[i+3] + 2/3 * (args[i+1] - args[i+3]);
+
+        if (shouldReturnTrueBounding) {
+          trueBounds = CurveBounding.calculate(
+            CurveBounding.Mode.STANDARD,
+            x, y,
+            cpx1, cpy1,
+            cpx2, cpy2,
+            x+args[i+2], y+args[i+3]
+          );
+          checkX(trueBounds[0]); // MIN_X
+          checkX(trueBounds[4]); // MAX_X
+          checkY(trueBounds[1]); // MIN_Y
+          checkY(trueBounds[5]); // MAX_Y
+        }
+        else {
+          checkX(cpx1);
+          checkY(cpy1);
+          checkX(cpx2);
+          checkY(cpy2);
+          checkX(x+args[i+2]);
+          checkY(y+args[i+3]);
+        }
 
         potentialCp = [
           2*(x+args[i+2]) - (x+args[i]),
           2*(y+args[i+3]) - (y+args[i+1])
         ];
-
         x += args[i+2];
         y += args[i+3];
-        checkX(x);
-        checkY(y);
       }
     }
     else if (command === 'T') {
       if (/[qt]/i.test(commands[idx - 1])) {
-        checkX(x + 2/3 * (potentialCp[0] - x));
-        checkY(y + 2/3 * (potentialCp[1] - y));
-        checkX(args[0] + 2/3 * (potentialCp[0] - args[0]));
-        checkY(args[1] + 2/3 * (potentialCp[1] - args[1]));
+        cpx1 = x + 2/3 * (potentialCp[0] - x);
+        cpy1 = y + 2/3 * (potentialCp[1] - y);
+        cpx2 = args[0] + 2/3 * (potentialCp[0] - args[0]);
+        cpy2 = args[1] + 2/3 * (potentialCp[1] - args[1]);
 
         potentialCp = [
           2*args[0] - potentialCp[0],
@@ -461,40 +611,84 @@ function boundingRectOfPath(path) {
         ];
       }
       else {
+        cpx1 = x;
+        cpy1 = y;
+        cpx2 = args[0] + 2/3 * (x - args[0]);
+        cpy2 = args[1] + 2/3 * (y - args[1]);
+
         potentialCp = [
           2*args[0] - x,
           2*args[1] - y
         ];
       }
 
+      if (shouldReturnTrueBounding) {
+        trueBounds = CurveBounding.calculate(
+          CurveBounding.Mode.STANDARD,
+          x, y,
+          cpx1, cpy1,
+          cpx2, cpy2,
+          args[0], args[1]
+        );
+        checkX(trueBounds[0]); // MIN_X
+        checkX(trueBounds[4]); // MAX_X
+        checkY(trueBounds[1]); // MIN_Y
+        checkY(trueBounds[5]); // MAX_Y
+      }
+      else {
+        checkX(cpx1);
+        checkY(cpy1);
+        checkX(cpx2);
+        checkY(cpy2);
+        checkX(args[0]);
+        checkY(args[1]);
+      }
+
       x = args[0];
       y = args[1];
-      checkX(x);
-      checkY(y);
 
       for (i = 2; i < args.length; i += 2) {
-        checkX(x + 2/3 * (potentialCp[0] - x));
-        checkY(y + 2/3 * (potentialCp[1] - y));
-        checkX(args[i] + 2/3 * (potentialCp[0] - args[i]));
-        checkY(args[i+1] + 2/3 * (potentialCp[1] - args[i+1]));
+        cpx1 = x + 2/3 * (potentialCp[0] - x);
+        cpy1 = y + 2/3 * (potentialCp[1] - y);
+        cpx2 = args[i] + 2/3 * (potentialCp[0] - args[i]);
+        cpy2 = args[i+1] + 2/3 * (potentialCp[1] - args[i+1]);
+
+        if (shouldReturnTrueBounding) {
+          trueBounds = CurveBounding.calculate(
+            CurveBounding.Mode.STANDARD,
+            x, y,
+            cpx1, cpy1,
+            cpx2, cpy2,
+            args[i], args[i+1]
+          );
+          checkX(trueBounds[0]); // MIN_X
+          checkX(trueBounds[4]); // MAX_X
+          checkY(trueBounds[1]); // MIN_Y
+          checkY(trueBounds[5]); // MAX_Y
+        }
+        else {
+          checkX(cpx1);
+          checkY(cpy1);
+          checkX(cpx2);
+          checkY(cpy2);
+          checkX(args[i]);
+          checkY(args[i+1]);
+        }
 
         potentialCp = [
           2*args[i] - potentialCp[0],
           2*args[i+1] - potentialCp[1]
         ];
-
         x = args[i];
         y = args[i+1];
-        checkX(x);
-        checkY(y);
       }
     }
     else if (command === 't') {
       if (/[qt]/i.test(commands[idx - 1])) {
-        checkX(x + 2/3 * (potentialCp[0] - x));
-        checkY(y + 2/3 * (potentialCp[1] - y));
-        checkX(x+args[0] + 2/3 * (potentialCp[0] -x-args[0]));
-        checkY(y+args[1] + 2/3 * (potentialCp[1] -y-args[1]));
+        cpx1 = x + 2/3 * (potentialCp[0] - x);
+        cpy1 = y + 2/3 * (potentialCp[1] - y);
+        cpx2 = x+args[0] + 2/3 * (potentialCp[0] -x-args[0]);
+        cpy2 = y+args[1] + 2/3 * (potentialCp[1] -y-args[1]);
 
         potentialCp = [
           2*(x+args[0]) - potentialCp[0],
@@ -502,32 +696,76 @@ function boundingRectOfPath(path) {
         ];
       }
       else {
+        cpx1 = x;
+        cpy1 = y;
+        cpx2 = x+args[0] - 2/3 * args[0];
+        cpy2 = y+args[1] - 2/3 * args[1];
+
         potentialCp = [
           2*(x+args[0]) - x,
           2*(y+args[1]) - y
         ];
       }
 
+      if (shouldReturnTrueBounding) {
+        trueBounds = CurveBounding.calculate(
+          CurveBounding.Mode.STANDARD,
+          x, y,
+          cpx1, cpy1,
+          cpx2, cpy2,
+          x+args[0], y+args[1]
+        );
+        checkX(trueBounds[0]); // MIN_X
+        checkX(trueBounds[4]); // MAX_X
+        checkY(trueBounds[1]); // MIN_Y
+        checkY(trueBounds[5]); // MAX_Y
+      }
+      else {
+        checkX(cpx1);
+        checkY(cpy1);
+        checkX(cpx2);
+        checkY(cpy2);
+        checkX(x+args[0]);
+        checkY(y+args[1]);
+      }
+
       x += args[0];
       y += args[1];
-      checkX(x);
-      checkY(y);
 
       for (i = 2; i < args.length; i += 2) {
-        checkX(x + 2/3 * (potentialCp[0] - x));
-        checkY(y + 2/3 * (potentialCp[1] - y));
-        checkX(x+args[i] + 2/3 * (potentialCp[0] -x-args[i]));
-        checkY(y+args[i+1] + 2/3 * (potentialCp[1] -y-args[i+1]));
+        cpx1 = x + 2/3 * (potentialCp[0] - x);
+        cpy1 = y + 2/3 * (potentialCp[1] - y);
+        cpx2 = x+args[i] + 2/3 * (potentialCp[0] -x-args[i]);
+        cpy2 = y+args[i+1] + 2/3 * (potentialCp[1] -y-args[i+1]);
+
+        if (shouldReturnTrueBounding) {
+          trueBounds = CurveBounding.calculate(
+            CurveBounding.Mode.STANDARD,
+            x, y,
+            cpx1, cpy1,
+            cpx2, cpy2,
+            x+args[i], y+args[i+1]
+          );
+          checkX(trueBounds[0]); // MIN_X
+          checkX(trueBounds[4]); // MAX_X
+          checkY(trueBounds[1]); // MIN_Y
+          checkY(trueBounds[5]); // MAX_Y
+        }
+        else {
+          checkX(cpx1);
+          checkY(cpy1);
+          checkX(cpx2);
+          checkY(cpy2);
+          checkX(x+args[i]);
+          checkY(y+args[i+1]);
+        }
 
         potentialCp = [
           2*(x+args[i]) - potentialCp[0],
           2*(y+args[i+1]) - potentialCp[1]
         ];
-
         x += args[i];
         y += args[i+1];
-        checkX(x);
-        checkY(y);
       }
     }
     else if (command === 'A') {

@@ -1,6 +1,6 @@
 {
   "name": "svg-boundings",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Get bounding rect of SVG shape elements.",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   ],
   "author": "Ye Hao",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "cheerio": "~0.19.0",
     "mocha": "~2.3.4",
     "should": "~8.0.2"
