@@ -1,3 +1,7 @@
+## v1.1.1 (03/31/2015)
+
+Add true bounding box option for the generic `boundingRectOfShape` method.
+
 ## v1.1.0 (03/28/2015)
 
 Add `shouldReturnTrueBounding` option for `boundingRectOfPath`.

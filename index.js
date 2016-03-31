@@ -800,7 +800,7 @@ function boundingRectOfShape(shape) {
 
   switch(tag) {
     case 'path':
-      bounding = boundingRectOfPath(shape);
+      bounding = boundingRectOfPath(shape, arguments[1]);
       break;
     case 'polygon':
       bounding = boundingRectOfPolygon(shape);
