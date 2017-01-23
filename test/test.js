@@ -18,6 +18,8 @@ Object.defineProperty($.prototype, 'tagName', {
 function compare(helperData, browserData) {
   (helperData.left - browserData.left).should.be.approximately(0, 0.5);
   (helperData.top - browserData.top).should.be.approximately(0, 0.5);
+  (helperData.right - browserData.right).should.be.approximately(0, 0.5);
+  (helperData.bottom - browserData.bottom).should.be.approximately(0, 0.5);
   (helperData.width - browserData.width).should.be.approximately(0, 0.5);
   (helperData.height - browserData.height).should.be.approximately(0, 0.5);
 }

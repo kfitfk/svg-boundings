@@ -3,48 +3,64 @@
     "height": 54.199,
     "left": 21,
     "top": 27.601,
-    "width": 215
+    "width": 215,
+    "bottom": 81.8,
+    "right": 236
   },
   "Mhscs": {
     "height": 52.593,
     "left": 27,
     "top": 75.5,
-    "width": 177
+    "width": 177,
+    "bottom": 128.093,
+    "right": 204
   },
   "Mhqttt": {
     "height": 133.042,
     "left": 33,
     "top": 52.979,
-    "width": 106
+    "width": 106,
+    "bottom": 186.021,
+    "right": 139
   },
   "Mhtttt": {
     "height": 133.042,
     "left": 33,
     "top": 92.979,
-    "width": 106
+    "width": 106,
+    "bottom": 226.021,
+    "right": 139
   },
   "MHCSSS": {
     "height": 54.199,
     "left": 21,
     "top": 27.601,
-    "width": 215
+    "width": 215,
+    "bottom": 81.8,
+    "right": 236
   },
   "MHSCS": {
     "height": 52.593,
     "left": 27,
     "top": 75.5,
-    "width": 177
+    "width": 177,
+    "bottom": 128.093,
+    "right": 204
   },
   "MHQTTT": {
     "height": 133.042,
     "left": 33,
     "top": 52.979,
-    "width": 106
+    "width": 106,
+    "bottom": 186.021,
+    "right": 139
   },
   "MHTTTT": {
     "height": 133.042,
     "left": 33,
     "top": 92.979,
-    "width": 106
+    "width": 106,
+    "bottom": 226.021,
+    "right": 139
   }
 }

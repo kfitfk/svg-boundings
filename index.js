@@ -57,6 +57,8 @@ function boundingRectOfLine(line) {
   return {
     left: Math.min(x1, x2),
     top: Math.min(y1, y2),
+    right: Math.max(x1, x2),
+    bottom: Math.max(y1, y2),
     width: Math.abs(x1 - x2),
     height: Math.abs(y1 - y2)
   };
@@ -78,6 +80,8 @@ function boundingRectOfRect(rect) {
     return {
       left: newTrbl.l,
       top: newTrbl.t,
+      right: newTrbl.r,
+      bottom: newTrbl.b,
       width: newTrbl.r - newTrbl.l,
       height: newTrbl.b - newTrbl.t
     };
@@ -86,6 +90,8 @@ function boundingRectOfRect(rect) {
   return {
     left: l,
     top: t,
+    right: r,
+    bottom: b,
     width: w,
     height: h
   };
@@ -99,6 +105,8 @@ function boundingRectOfCircle(circle) {
   return {
     left: cx - r,
     top: cy - r,
+    right: cx + r,
+    bottom: cy + r,
     width: 2 * r,
     height: 2 * r
   };
@@ -122,6 +130,8 @@ function boundingRectOfEllipse(ellipse) {
     return {
       left: newTrbl.l,
       top: newTrbl.t,
+      right: newTrbl.r,
+      bottom: newTrbl.b,
       width: newTrbl.r - newTrbl.l,
       height: newTrbl.b - newTrbl.t
     };
@@ -130,6 +140,8 @@ function boundingRectOfEllipse(ellipse) {
   return {
     left: l,
     top: t,
+    right: r,
+    bottom: b,
     width: 2 * rx,
     height: 2 * ry
   };
@@ -153,6 +165,8 @@ function boundingRectOfPolygon(polygon) {
   return {
     left: l,
     top: t,
+    right: r,
+    bottom: b,
     width: r - l,
     height: b - t
   };
@@ -790,6 +804,8 @@ function boundingRectOfPath(path, shouldReturnTrueBounding) {
   return {
     left: l,
     top: t,
+    right: r,
+    bottom: b,
     width: r - l,
     height: b - t
   };
