@@ -22,6 +22,18 @@ function compare(helperData, browserData) {
   (helperData.height - browserData.height).should.be.approximately(0, 0.5);
 }
 
+function strToMatrix(matrixStr) {
+  var m = [];
+  var rdigit = /[\d\.\-e]+/g;
+  var n;
+
+  while(n = rdigit.exec(matrixStr)) {
+    m.push(+n);
+  }
+
+  return m;
+}
+
 describe('calculate shape bounding rects', function() {
   before(function() {
     svgStr = fs.readFileSync(path.join(__dirname, '..', 'assets', 'shapes.svg'), { encoding: 'utf-8' });
@@ -201,6 +213,28 @@ describe('calculate real path boundings', function() {
     ids.forEach(function(id) {
       var path = $svg.find('#' + id);
       var bounding = BoundingHelper.path(path, true);
+      compare(bounding, browserData[id]);
+    });
+  });
+});
+
+describe('calculate image bounding rects', function() {
+  before(function() {
+    svgStr = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images.svg'), { encoding: 'utf-8' });
+    browserData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'assets', 'images_browser_data.json'), { encoding: 'utf-8' }));
+    $svg = $.load(svgStr, { xmlMode: true })('svg').eq(0);
+  });
+
+  it ('can get bounding rect of images', function() {
+    var ids = ['tl', 'bl', 'br', 'c', 'tr'];
+
+    ids.forEach(function(id) {
+      var $image = $svg.find('#' + id);
+      var w = Number($image.attr('width'));
+      var h = Number($image.attr('height'));
+      var matrixStr = $image.attr('transform') || 'matrix(1 0 0 1 0 0)';
+      var matrix = strToMatrix(matrixStr)
+      var bounding = BoundingHelper.image(w, h, matrix);
       compare(bounding, browserData[id]);
     });
   });

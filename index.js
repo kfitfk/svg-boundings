@@ -1,4 +1,5 @@
 var CurveBounding = require('./lib/curve_bounding');
+var boundingOfImage = require('./lib/image_bounding');
 
 function _parseMatrixStr(str) {
   var m = []
@@ -833,5 +834,6 @@ module.exports = {
   polygon: boundingRectOfPolygon,
   polyline: boundingRectOfPolyline,
   path: boundingRectOfPath,
-  shape: boundingRectOfShape
+  shape: boundingRectOfShape,
+  image: boundingOfImage
 };
