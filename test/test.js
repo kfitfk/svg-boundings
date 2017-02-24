@@ -1,9 +1,15 @@
+'use strict';
+
+/* eslint-env mocha */
+
 var fs = require('fs');
 var path = require('path');
 var $ = require('cheerio');
 
+/* eslint-disable */
 var assert = require('assert');
 var should = require('should');
+/* eslint-enable */
 
 var BoundingHelper = require('../index');
 
@@ -235,7 +241,7 @@ describe('calculate image bounding rects', function() {
       var w = Number($image.attr('width'));
       var h = Number($image.attr('height'));
       var matrixStr = $image.attr('transform') || 'matrix(1 0 0 1 0 0)';
-      var matrix = strToMatrix(matrixStr)
+      var matrix = strToMatrix(matrixStr);
       var bounding = BoundingHelper.image(w, h, matrix);
       compare(bounding, browserData[id]);
     });

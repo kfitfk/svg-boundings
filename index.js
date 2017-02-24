@@ -1,13 +1,15 @@
+'use strict';
+
 var CurveBounding = require('./lib/curve_bounding');
 var boundingOfImage = require('./lib/image_bounding');
 
 function _parseMatrixStr(str) {
-  var m = []
-  var rdigit = /[\d\.\-Ee]+/g
-  var n
+  var m = [];
+  var rdigit = /[\d\.\-Ee]+/g;
+  var n;
 
   while(n = rdigit.exec(str)) {
-    m.push(+n)
+    m.push(+n);
   }
 
   return {
@@ -66,7 +68,7 @@ function boundingRectOfLine(line) {
 
 function boundingRectOfRect(rect) {
   var w = parseFloat(rect.getAttribute('width'));
-  var h = parseFloat(rect.getAttribute('height'))
+  var h = parseFloat(rect.getAttribute('height'));
   var l = parseFloat(rect.getAttribute('x')) || 0;
   var t = parseFloat(rect.getAttribute('y')) || 0;
   var r = l + w;
@@ -76,7 +78,7 @@ function boundingRectOfRect(rect) {
   var matrix;
   if (transform) {
     matrix = _parseMatrixStr(transform);
-    newTrbl = _handleTransform(matrix, t, r, b, l);
+    var newTrbl = _handleTransform(matrix, t, r, b, l);
     return {
       left: newTrbl.l,
       top: newTrbl.t,
@@ -230,8 +232,7 @@ function boundingRectOfPath(path, shouldReturnTrueBounding) {
       return parseFloat(chars.join(''));
     };
 
-    while (!isNaN(num = nextNumber()))
-      output.push(num);
+    while (!isNaN(num = nextNumber())) output.push(num);
 
     return output;
   };
@@ -239,18 +240,17 @@ function boundingRectOfPath(path, shouldReturnTrueBounding) {
   var checkX = function(val) {
     if (val < l) l = val;
     if (val > r) r = val;
-  }
+  };
 
   var checkY = function(val) {
     if (val < t) t = val;
     if (val > b) b = val;
-  }
+  };
 
   // Get all commands first
   var i = 0, c = '';
   while (c = d.charAt(i++)) {
-    if (/[mlhvaqtcsz]/i.test(c))
-      commands.push(c);
+    if (/[mlhvaqtcsz]/i.test(c)) commands.push(c);
   }
 
   // The shift() is used to throw away strings come before the first command
