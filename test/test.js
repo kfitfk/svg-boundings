@@ -13,7 +13,7 @@ var should = require('should');
 
 var BoundingHelper = require('../index');
 
-var svgStr, browserData, $svg;
+var svgStr, browserData, aiData, $svg;
 
 // Simulate DOM object methods and properties used in BoundingHelper
 $.prototype.getAttribute = $.prototype.attr;
@@ -181,7 +181,7 @@ describe('calculate path boundings which use S/s and T/t commands', function() {
 describe('calculate real path boundings', function() {
   before(function() {
     svgStr = fs.readFileSync(path.join(__dirname, '..', 'assets', 'curves.svg'), { encoding: 'utf-8' });
-    browserData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'assets', 'curves_ai_data.json'), { encoding: 'utf-8' }));
+    aiData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'assets', 'curves_ai_data.json'), { encoding: 'utf-8' }));
     $svg = $.load(svgStr, { xmlMode: true })('svg').eq(0);
   });
 
@@ -191,7 +191,7 @@ describe('calculate real path boundings', function() {
     ids.forEach(function(id) {
       var path = $svg.find('#' + id);
       var bounding = BoundingHelper.path(path, true);
-      compare(bounding, browserData[id]);
+      compare(bounding, aiData[id]);
     });
   });
 
@@ -201,7 +201,7 @@ describe('calculate real path boundings', function() {
     ids.forEach(function(id) {
       var path = $svg.find('#' + id);
       var bounding = BoundingHelper.path(path, true);
-      compare(bounding, browserData[id]);
+      compare(bounding, aiData[id]);
     });
   });
 
@@ -211,7 +211,7 @@ describe('calculate real path boundings', function() {
     ids.forEach(function(id) {
       var path = $svg.find('#' + id);
       var bounding = BoundingHelper.path(path, true);
-      compare(bounding, browserData[id]);
+      compare(bounding, aiData[id]);
     });
   });
 
@@ -221,8 +221,22 @@ describe('calculate real path boundings', function() {
     ids.forEach(function(id) {
       var path = $svg.find('#' + id);
       var bounding = BoundingHelper.path(path, true);
-      compare(bounding, browserData[id]);
+      compare(bounding, aiData[id]);
     });
+  });
+
+  it ('can get real bounding rect of a rotated ellipse', function() {
+    var id = 'rotated';
+    var path = $svg.find('#' + id);
+    var bounding = BoundingHelper.ellipse(path, true);
+    compare(bounding, aiData[id]);
+  });
+
+  it ('can get real bounding rect of a path which contains anchor points with the same x/y values.', function() {
+    var id = 'hv';
+    var path = $svg.find('#' + id);
+    var bounding = BoundingHelper.path(path, true);
+    compare(bounding ,aiData[id]);
   });
 });
 

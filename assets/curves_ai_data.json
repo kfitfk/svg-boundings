@@ -62,5 +62,21 @@
     "width": 106,
     "bottom": 226.021,
     "right": 139
+  },
+  "rotated": {
+    "bottom": 114.618,
+    "height": 78.236,
+    "left": 304.697,
+    "right": 456.76,
+    "top": 36.382,
+    "width": 152.063
+  },
+  "hv": {
+    "bottom": 237,
+    "height": 97,
+    "left": 309,
+    "right": 432,
+    "top": 140,
+    "width": 123
   }
 }
