@@ -11,15 +11,10 @@ var assert = require('assert');
 var should = require('should');
 /* eslint-enable */
 
+var Helper = require('../util/helper');
 var BoundingHelper = require('../index');
 
 var svgStr, browserData, aiData, $svg;
-
-// Simulate DOM object methods and properties used in BoundingHelper
-$.prototype.getAttribute = $.prototype.attr;
-Object.defineProperty($.prototype, 'tagName', {
-  get: function() { return this.get(0).tagName; }
-});
 
 function compare(helperData, browserData) {
   (helperData.left - browserData.left).should.be.approximately(0, 0.5);
@@ -28,18 +23,6 @@ function compare(helperData, browserData) {
   (helperData.bottom - browserData.bottom).should.be.approximately(0, 0.5);
   (helperData.width - browserData.width).should.be.approximately(0, 0.5);
   (helperData.height - browserData.height).should.be.approximately(0, 0.5);
-}
-
-function strToMatrix(matrixStr) {
-  var m = [];
-  var rdigit = /[\d\.\-e]+/g;
-  var n;
-
-  while(n = rdigit.exec(matrixStr)) {
-    m.push(+n);
-  }
-
-  return m;
 }
 
 describe('calculate shape bounding rects', function() {
@@ -255,7 +238,7 @@ describe('calculate image bounding rects', function() {
       var w = Number($image.attr('width'));
       var h = Number($image.attr('height'));
       var matrixStr = $image.attr('transform') || 'matrix(1 0 0 1 0 0)';
-      var matrix = strToMatrix(matrixStr);
+      var matrix = Helper.matrixStrToArr(matrixStr);
       var bounding = BoundingHelper.image(w, h, matrix);
       compare(bounding, browserData[id]);
     });
