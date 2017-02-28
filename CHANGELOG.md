@@ -1,3 +1,12 @@
+## v1.3.0 (02/28/2017)
+
+Refactor and more elements support.
+
+- Add an option for returning true bounding box of `<ellipse>` with `transform` property;
+- Support `<text>` bounding;
+- Support `<linearGradient>` and `<radialGradient>` boundings;
+- Use element object to eliminate differences between browser DOM element and cheerio node.
+
 ## v1.2.0 (01/23/2017)
 
 Add image bounding.
