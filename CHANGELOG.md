@@ -1,3 +1,7 @@
+## v1.3.1 (04/11/2017)
+
+No need to trim font size value.
+
 ## v1.3.0 (02/28/2017)
 
 Refactor and more elements support.
