@@ -1,3 +1,7 @@
+## v2.0.0 (06/23/2017)
+
+`boundingOfImage` method accepts an `<image>` node as parameter.
+
 ## v1.3.1 (04/11/2017)
 
 No need to trim font size value.

@@ -235,11 +235,7 @@ describe('calculate image bounding rects', function() {
 
     ids.forEach(function(id) {
       var $image = $svg.find('#' + id);
-      var w = Number($image.attr('width'));
-      var h = Number($image.attr('height'));
-      var matrixStr = $image.attr('transform') || 'matrix(1 0 0 1 0 0)';
-      var matrix = Helper.matrixStrToArr(matrixStr);
-      var bounding = BoundingHelper.image(w, h, matrix);
+      var bounding = BoundingHelper.image($image);
       compare(bounding, browserData[id]);
     });
   });
