@@ -11,7 +11,7 @@
 	<rect id="rect" x="43" y="165" fill="none" stroke="#000000" stroke-miterlimit="10" width="124" height="72"/>
 
 		<rect id="rectRotate" x="204.9" y="165" transform="matrix(0.9109 0.4125 -0.4125 0.9109 106.6851 -92.2065)" fill="none" stroke="#000000" stroke-miterlimit="10" width="124" height="72"/>
-	<polygon id="rectShear" fill="none" stroke="#000000" stroke-miterlimit="10" points="484.5,237 360.5,237 376.5,165 500.5,165
+	<polygon id="rectShear" fill="none" stroke="#000000" stroke-miterlimit="10" points="  484.5,237 360.5,237 376.5,165 500.5,165
 		"/>
 	<circle id="circle" fill="none" stroke="#000000" stroke-miterlimit="10" cx="103.1" cy="342.5" r="53.9"/>
 	<circle id="circleRotate" fill="none" stroke="#000000" stroke-miterlimit="10" cx="267.1" cy="342.5" r="53.9"/>

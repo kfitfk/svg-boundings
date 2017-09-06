@@ -1,3 +1,7 @@
+## v2.0.1 (09/06/2017)
+
+Fix wrong bounding box of `<polygon>` and `<polyline>` if their `points` attribute starts with spaces.
+
 ## v2.0.0 (06/23/2017)
 
 `boundingOfImage` method accepts an `<image>` node as parameter.
