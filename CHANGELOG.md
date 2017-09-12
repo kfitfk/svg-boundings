@@ -1,3 +1,7 @@
+## v2.0.2 (09/12/2017)
+
+Fix `elementObject` doesn't return a gradient object in `lib/element_object.js` due to mixed letter case.
+
 ## v2.0.1 (09/06/2017)
 
 Fix wrong bounding box of `<polygon>` and `<polyline>` if their `points` attribute starts with spaces.
