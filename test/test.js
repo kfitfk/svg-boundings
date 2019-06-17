@@ -11,7 +11,6 @@ var assert = require('assert');
 var should = require('should');
 /* eslint-enable */
 
-var Helper = require('../util/helper');
 var BoundingHelper = require('../index');
 
 var svgStr, browserData, aiData, $svg;
@@ -217,6 +216,42 @@ describe('calculate real path boundings', function() {
 
   it ('can get real bounding rect of a path which contains anchor points with the same x/y values.', function() {
     var id = 'hv';
+    var path = $svg.find('#' + id);
+    var bounding = BoundingHelper.path(path, true);
+    compare(bounding ,aiData[id]);
+  });
+});
+
+describe('calculate perfectly aligned paths bounding', function() {
+  before(function() {
+    svgStr = fs.readFileSync(path.join(__dirname, '..', 'assets', 'special_curves.svg'), { encoding: 'utf-8' });
+    aiData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'assets', 'special_curves_ai_data.json'), { encoding: 'utf-8' }));
+    $svg = $.load(svgStr, { xmlMode: true })('svg').eq(0);
+  });
+
+  it('can get real bounding rect of a simple path segment whose anchor points and control points forms a rectangle - h1', function() {
+    var id = 'h1';
+    var path = $svg.find('#' + id);
+    var bounding = BoundingHelper.path(path, true);
+    compare(bounding ,aiData[id]);
+  });
+
+  it('can get real bounding rect of a simple path segment whose anchor points and control points forms a rectangle - h2', function() {
+    var id = 'h2';
+    var path = $svg.find('#' + id);
+    var bounding = BoundingHelper.path(path, true);
+    compare(bounding ,aiData[id]);
+  });
+
+  it('can get real bounding rect of a simple path segment whose anchor points and control points forms a rectangle - v1', function() {
+    var id = 'v1';
+    var path = $svg.find('#' + id);
+    var bounding = BoundingHelper.path(path, true);
+    compare(bounding ,aiData[id]);
+  });
+
+  it('can get real bounding rect of a simple path segment whose anchor points and control points forms a rectangle - v2', function() {
+    var id = 'v2';
     var path = $svg.find('#' + id);
     var bounding = BoundingHelper.path(path, true);
     compare(bounding ,aiData[id]);

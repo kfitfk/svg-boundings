@@ -1,3 +1,7 @@
+## v2.0.3 (06/17/2019)
+
+Fix wrong bounding box if a path segment's control/anchor points points lies on the same horizontal/vertical line
+
 ## v2.0.2 (09/12/2017)
 
 Fix `elementObject` doesn't return a gradient object in `lib/element_object.js` due to mixed letter case.
