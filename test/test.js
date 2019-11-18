@@ -275,3 +275,20 @@ describe('calculate image bounding rects', function() {
     });
   });
 });
+
+describe('deal with complex d property', function() {
+  it ('can parse adjacent fractional numbers without leading zeros', function() {
+    var bounding = BoundingHelper.path({
+      type: 'path',
+      d: 'M8.52 13.763L11.7 10.58l.495.495-3.181 3.182z'
+    }, true);
+    compare(bounding, {
+      top: 10.58,
+      left: 8.52,
+      bottom: 14.257,
+      right: 12.195,
+      width: 3.675,
+      height: 3.677
+    });
+  });
+});

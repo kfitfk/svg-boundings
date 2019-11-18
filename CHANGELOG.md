@@ -1,3 +1,7 @@
+## v2.0.4 (11/18/2019)
+
+Support adjacent fractional numbers without leading zeros, e.g. "l.495.495-3.181 3.182"
+
 ## v2.0.3 (06/17/2019)
 
 Fix wrong bounding box if a path segment's control/anchor points points lies on the same horizontal/vertical line
