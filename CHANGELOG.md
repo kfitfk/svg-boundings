@@ -1,3 +1,7 @@
+## v2.0.5 (11/27/2019)
+
+Fix an error when parsing scientific notation like this "l-1.4e-1-38.4-29.3-1.7e-1-31.3,32.1"
+
 ## v2.0.4 (11/18/2019)
 
 Support adjacent fractional numbers without leading zeros, e.g. "l.495.495-3.181 3.182"
