@@ -291,4 +291,18 @@ describe('deal with complex d property', function() {
       height: 3.677
     });
   });
+  it ('can parse scientific counting is negative', function() {
+    var bounding = BoundingHelper.path({
+      type: 'path',
+      d: 'M100.5,100.5l-1.4e-1-38.4-29.3-1.7e-1-31.3,32.1Z'
+    }, true);
+    compare(bounding, {
+      left: 39.76,
+      top: 61.93,
+      right: 100.5,
+      bottom: 100.5,
+      width: 60.74,
+      height: 38.57
+    });
+  });
 });
