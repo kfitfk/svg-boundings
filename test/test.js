@@ -276,6 +276,26 @@ describe('calculate image bounding rects', function() {
   });
 });
 
+describe('calculate text bounding rects', function() {
+  before(function() {
+    svgStr = fs.readFileSync(path.join(__dirname, '..', 'assets', 'texts.svg'), { encoding: 'utf-8' });
+    $svg = $.load(svgStr, { xmlMode: true })('svg').eq(0);
+  });
+
+  it ('can get bounding rect of texts', function() {
+    var $text = $svg.find('#text');
+    var bounding = BoundingHelper.text($text);
+    compare(bounding, {
+      left: 326,
+      top: 253,
+      right: 530,
+      bottom: 277,
+      width: 204,
+      height: 24
+    });
+  });
+});
+
 describe('deal with complex d property', function() {
   it ('can parse adjacent fractional numbers without leading zeros', function() {
     var bounding = BoundingHelper.path({
