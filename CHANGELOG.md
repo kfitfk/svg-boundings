@@ -1,3 +1,7 @@
+## v2.0.6 (12/09/2019)
+
+Fix an error when font-size of tspan is undefined
+
 ## v2.0.5 (11/27/2019)
 
 Fix an error when parsing scientific notation like this "l-1.4e-1-38.4-29.3-1.7e-1-31.3,32.1"
