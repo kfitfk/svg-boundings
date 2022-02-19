@@ -1,6 +1,11 @@
+## v2.0.7
+
+- Add a new Matrix util and migrate the code which uses the old simple matrix string parser;
+- Expand `transform` attribute of `<path />` if calculating true bounding.
+
 ## v2.0.6 (12/09/2019)
 
-Fix an error when font-size of tspan is undefined
+Fix an error when font-size of tspan is undefined.
 
 ## v2.0.5 (11/27/2019)
 
