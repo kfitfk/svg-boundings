@@ -222,6 +222,33 @@ describe('calculate real path boundings', function() {
   });
 });
 
+describe('calculate boundings of paths with transform attributes', function() {
+  before(function() {
+    svgStr = fs.readFileSync(path.join(__dirname, '..', 'assets', 'path_transform.svg'), { encoding: 'utf-8' });
+    browserData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'assets', 'path_transform_browser_data.json'), { encoding: 'utf-8' }));
+    aiData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'assets', 'path_transform_ai_data.json'), { encoding: 'utf-8' }));
+    $svg = $.load(svgStr, { xmlMode: true })('svg').eq(0);
+  });
+
+  it('can get browser bounding of a path with transform attribute', function() {
+    // bounding of #cp_outside_path_with_transform not supported for now
+    var id = 'cp_inside_path_with_transform';
+    var path = $svg.find('#' + id);
+    var bounding = BoundingHelper.path(path);
+    compare(bounding, browserData[id]);
+  });
+
+  it('can get true bounding of a path with transform attribute applied', function() {
+    var ids = ['cp_outside_path_transform_applied', 'cp_inside_path_transform_applied'];
+
+    ids.forEach(function(id) {
+      var path = $svg.find('#' + id);
+      var bounding = BoundingHelper.path(path, true);
+      compare(bounding, aiData[id]);
+    });
+  });
+});
+
 describe('calculate perfectly aligned paths bounding', function() {
   before(function() {
     svgStr = fs.readFileSync(path.join(__dirname, '..', 'assets', 'special_curves.svg'), { encoding: 'utf-8' });

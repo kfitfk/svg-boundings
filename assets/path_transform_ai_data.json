@@ -1,0 +1,34 @@
+{
+  "cp_outside_path_with_transform": {
+    "left": 346.1818,
+    "top": -11.1553,
+    "right": 638.6441,
+    "bottom": 256.1557,
+    "width": 292.4623,
+    "height": 267.311
+  },
+  "cp_outside_path_transform_applied": {
+    "left": 345.761,
+    "top": -11.3461,
+    "right": 638.2244,
+    "bottom": 255.9604,
+    "width": 292.4634,
+    "height": 267.3065
+  },
+  "cp_inside_path_with_transform": {
+    "left": 350.6186,
+    "top": 415.949,
+    "right": 580.5515,
+    "bottom": 549.0962,
+    "width": 229.9347,
+    "height": 133.1472
+  },
+  "cp_inside_path_transform_applied": {
+    "left": 350.72,
+    "top": 416.0527,
+    "right": 580.6536,
+    "bottom": 549.196,
+    "width": 229.9336,
+    "height": 133.1433
+  }
+}

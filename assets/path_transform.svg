@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="743px" height="650px" viewBox="0 0 743 650" enable-background="new 0 0 743 650" xml:space="preserve">
+<path fill="#FF931E" d="M173,96.89C173-3,344,5,327,101S173,273.08,173,273.08S33.2,202.14,17,105C-0.73-1.32,172.51-9.29,173,96.89
+	z"/>
+<!-- control points outside bounding box -->
+<path id="cp_outside_path_with_transform" fill="#93ED1E" d="M173,96.89C173-3,344,5,327,101S173,273.08,173,273.08S33.2,202.14,17,105C-0.73-1.32,172.51-9.29,173,96.89
+	z" transform="translate(339 11) translate(156 126) rotate(-30) translate(-156 -126)"/>
+<path id="cp_outside_path_transform_applied" fill="#FF931E" d="M494.75,103.1C444.81,16.59,596.9-61.98,630.17,29.66c33.28,91.64-47.33,226.02-47.33,226.02
+	s-156.54,8.46-219.14-67.56C295.19,104.91,441.23,11.39,494.75,103.1z"/>
+<rect x="346" y="-11" fill="none" stroke="#000000" stroke-miterlimit="10" width="292" height="267"/>
+
+<!-- control points inside bounding box -->
+<path fill="#FF931E" d="M161,415c66,0,108,33,108,67c0,52-216,74-216,74s83-52,58-78S124,415,161,415z"/>
+<path id="cp_inside_path_with_transform"  fill="#93ED1E" d="M161,415c66,0,108,33,108,67c0,52-216,74-216,74s83-52,58-78S124,415,161,415z" transform="translate(533 29) translate(108 70.5) rotate(30) translate(-108 -70.5)"/>
+<path id="cp_inside_path_transform_applied" fill="#FF931E" d="M514.75,424.45c57.16,33,77.03,82.58,60.03,112.02c-26,45.03-224.06-43.91-224.06-43.91
+	s97.88-3.53,89.23-38.55S482.71,405.95,514.75,424.45z"/>
+<g>
+	<line fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" x1="375.97" y1="344.32" x2="663.06" y2="510.07"/>
+	<line fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" x1="305.28" y1="466.32" x2="592.37" y2="632.07"/>
+	<line fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" x1="442.02" y1="334.41" x2="322.5" y2="541.43"/>
+	<line fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" x1="635.06" y1="432.06" x2="515.54" y2="639.08"/>
+</g>
+<rect x="371.45" y="415.05" transform="matrix(0.866 0.5 -0.5 0.866 306.9948 -174.688)" fill="none" stroke="#FF931E" stroke-miterlimit="10" width="216.04" height="140.94"/>
+<rect x="350.72" y="416.05" fill="none" stroke="#FF931E" stroke-miterlimit="10" width="229.93" height="133.15"/>
+</svg>

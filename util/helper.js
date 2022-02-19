@@ -1,44 +1,79 @@
 'use strict';
 
+var Matrix = require('./matrix');
+var RE_TRANSFORM_TYPE = /(matrix|translate|scale|rotate|skewX|skewY)\s*\(([^)]+)\)/g;
 var Helper = {
-  matrixStrToObj: function(str) {
-    var m = [];
-    var rdigit = /[\d\.\-Ee]+/g;
-    var n;
+  /**
+  * turn a transform string into matrix(a b c d e f) format
+  * @param {string} val - the transform value of a node
+  * @param {object|string} [baseMatrixOrTransform] - base matrix, default to a 3x3 identity matrix
+  * @returns {string} - a matrix object
+  */
+  transformToMatrix: function(val, baseMatrixOrTransform) {
+    var m;
+    if (baseMatrixOrTransform instanceof Matrix) m = baseMatrixOrTransform;
+    else if (typeof baseMatrixOrTransform === 'string') val = baseMatrixOrTransform + ' ' + val;
+    if (!m) m = Matrix.identity(3);
 
-    while(n = rdigit.exec(str)) {
-      m.push(+n);
+    var transform = RE_TRANSFORM_TYPE.exec(val);
+    var type, values;
+    while (transform) {
+      type = transform[1];
+      values = transform[2].trim().split(/[\s,]+/).map(function(value) {
+        return Number(value.trim());
+      });
+
+      switch(type) {
+        case 'matrix':
+          m = m.x(Matrix.matrix(values[0], values[1], values[2], values[3], values[4], values[5]));
+          break;
+        case 'translate':
+          m = m.x(Matrix.translate(values[0], values[1] || 0));
+          break;
+        case 'scale':
+          if (values.length === 1) m = m.x(Matrix.scale(values[0]));
+          else m = m.x(Matrix.scale(values[0], values[1]));
+          break;
+        case 'rotate':
+          if (values.length > 1) {
+            m = m
+            .x(Matrix.translate(values[1], values[2] || 0))
+            .x(Matrix.rotate(values[0] + 'deg'))
+            .x(Matrix.translate(-1 * values[1], -1 * values[2] || 0));
+          }
+          else m = m.x(Matrix.rotate(values[0] + 'deg'));
+          break;
+        case 'skewX':
+          m = m.x(Matrix.skewX(values[0] + 'deg'));
+          break;
+        case 'skewY':
+          m = m.x(Matrix.skewY(values[0] + 'deg'));
+          break;
+      }
+
+      transform = RE_TRANSFORM_TYPE.exec(val);
     }
-
-    return {
-      a: m[0],
-      b: m[1],
-      c: m[2],
-      d: m[3],
-      e: m[4],
-      f: m[5]
-    };
-  },
-
-  matrixStrToArr: function(str) {
-    var m = [];
-    var rdigit = /[\d\.\-e]+/g;
-    var n;
-
-    while(n = rdigit.exec(str)) {
-      m.push(+n);
-    }
-
     return m;
   },
 
+  /**
+  * turn a transform string into matrix(a b c d e f) format
+  * @param {string} val - the transform value of a node
+  * @param {object|string} [baseMatrixOrTransform] - base matrix, default to a 3x3 identity matrix
+  * @returns {string} - transform value in matrix(a b c d e f) format
+  */
+  normalizeTransform: function(val, baseMatrixOrTransform) {
+    var m = Helper.transformToMatrix(val, baseMatrixOrTransform);
+    return m.to2dTransformString();
+  },
+
   boundingUnderTransform: function(matrix, t, r, b, l) {
-    var ma = matrix.a;
-    var mb = matrix.b;
-    var mc = matrix.c;
-    var md = matrix.d;
-    var me = matrix.e;
-    var mf = matrix.f;
+    var ma = matrix.e(1, 1);
+    var mb = matrix.e(2, 1);
+    var mc = matrix.e(1, 2);
+    var md = matrix.e(2, 2);
+    var me = matrix.e(1, 3);
+    var mf = matrix.e(2, 3);
 
     var tl_l = ma*l + mc*t + me;
     var tl_t = mb*l + md*t + mf;
