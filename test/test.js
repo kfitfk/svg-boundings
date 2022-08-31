@@ -160,6 +160,23 @@ describe('calculate path boundings which use S/s and T/t commands', function() {
   });
 });
 
+describe('calculate path boundings using A/a commands', function() {
+  it('can get bounding rect of a path which uses a commands', function() {
+    var bounding = BoundingHelper.path({
+      type: 'path',
+      d: 'M-19.31 72.112a22.103 9.049 2.187 0 1 39.393-6.946 22.103 9.049 2.187 0 1 39.392-6.946q15 12.586-9.392 32.119-54.392-5.64-69.392-18.227z',
+    }, true);
+    compare(bounding, {
+      left: -21.71,
+      right: 65.18,
+      top: 52.66,
+      bottom: 90.336,
+      width: 86.89,
+      height: 37.676,
+    });
+  })
+});
+
 describe('calculate real path boundings', function() {
   before(function() {
     svgStr = fs.readFileSync(path.join(__dirname, '..', 'assets', 'curves.svg'), { encoding: 'utf-8' });
