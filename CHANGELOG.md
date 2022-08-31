@@ -1,3 +1,8 @@
+## v2.0.8 (08/31/2022)
+
+- Convert path's A/a command to bezier curve so that the bounding is more accurate
+- Separate tspan bounding handling functions for browser/node env
+
 ## v2.0.7
 
 - Add a new Matrix util and migrate the code which uses the old simple matrix string parser;
